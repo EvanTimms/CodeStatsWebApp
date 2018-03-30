@@ -25,5 +25,7 @@ Part 3:
 - Displaying and fetching user data from databases.
 - Displaying all user on the site
 
+Part 4:
+- Feed integration(non signed in users can real other peoples resumes)
+
 * Data displayed using pyGal
- 
