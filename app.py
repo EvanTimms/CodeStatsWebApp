@@ -9,8 +9,30 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1271427@localhost/CodeApp'
 db = SQLAlchemy(app)
 personal_info = personalInfo()
+
+class User(db.Model):
+    __tablename__ = 'User'
+    id = db.Column('id', db.Integer, primary_key=True)
+    name = db.Column('name', db.Unicode)
+    username = db.Column('username', db.Unicode, unique=True)
+    email = db.Column('email', db.Unicode)
+    password = db.Column('password', db.Unicode)
+
+
+    def __init__(self, id, name, username, email, password):
+        self.name = name
+        self.username = username
+        self.email = email
+        self.password = password
+
+
+
+
+
+
 
 #registration class that takes form data from html
 class RegisterForm(Form):
