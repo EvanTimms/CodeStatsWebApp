@@ -10,6 +10,7 @@
 * Coding hours- Maybe
 * Bio
 * Github Link
+* Users have a email/pass associated with account
 
 ### Milestone:
 

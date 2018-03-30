@@ -1,5 +1,5 @@
 '''database python module, will be used to display all user data'''
-
+  
 def personalInfo():
     #load from database
     
@@ -9,7 +9,7 @@ def personalInfo():
             'degree': 'Computer Engineering',
             'year': 'Second Year',
             'gpa': 0,
-            'email': 'timmmsevan@gmail.com',
+            'email': 'timmsevan@gmail.com',
             'github': 'https://github.com/EvanTimms'
         }
     ]
