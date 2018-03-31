@@ -9,11 +9,8 @@ from checklogin import check_login
 #initalizing application as instance of flask class
 '''
 TODO:(Frontend)
-    - Finish edit profile page-DONE
-    - Style
     - Proper authentication displaying-Needs Backend, logic is there
     - Feed
-    - Documentation
 
 TODO:(Backend)
     - login/logout 
@@ -21,10 +18,15 @@ TODO:(Backend)
     - Edit profile integration
 
 TODO:(General)
-    - Refactor
-    - Comment/Update Readme
     - Figure out how to encoporate some sorta algorithm
     - Idea, use huffman encoding or some variation for password encryption
+
+    Order of things to do:
+    -Sign up
+    -Login/logout
+    -update profile
+    -feed 
+    -viewing other persons profile
 
 '''
 
@@ -74,6 +76,7 @@ def profile():
 @app.route('/home')
 def home():
     #TODO: Pull user data, build profiles off it
+    
     return render_template('home.html')
 
 #about route
@@ -201,7 +204,6 @@ def signUp():
 #logout
 @app.route('/signOut')
 def logout():
-    #TODO: Finish session code
     session.clear()
     flash('Logged Out!')
     return redirect(url_for('signIn'))

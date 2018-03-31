@@ -26,3 +26,4 @@ went in at this stage included setting up forms to register/login/logout. The li
 Using flasks dyanmic html features, we were able to set up a basic feed that pulled data from the database and displayed it for the user currently
 logged in. This way the user would be able to view other peoples resumes provided they were logged in. This also allowed us to change the navbar 
 depending on if the user was logged in or not
+
