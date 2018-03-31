@@ -2,7 +2,7 @@ from flask import Flask, render_template,flash, redirect, url_for, session, logg
 from data import personalInfo
 from chartBuilder import *
 from flask_sqlalchemy import SQLAlchemy
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators
+from wtforms import Form, StringField, TextAreaField, PasswordField, SelectField, FloatField, FormField, TextField,  validators
 from functools import wraps
 
 #initalizing application as instance of flask class
@@ -40,6 +40,83 @@ class RegisterForm(Form):
         validators.EqualTo('confirm', message='Passwords do not match')
         ])
     confirm = PasswordField('Confirm Password')
+
+class MultiForm(Form):
+    name = StringField('Name', [validators.Length(min=1, max=50)])
+    description = TextField('Description')
+
+class LangForm(Form):
+    lang = SelectField('Language', choices = [
+        ('cpp','C'), 
+        ('c','C++'), 
+        ('py','Python'),
+        ('java','Java'),
+        ('js','JavaScript'),
+        ('rb','Ruby'),
+        ('go','Go'),
+        ('s','Assemby'),
+        ('mat','Matlab'),
+        ('na','None')
+        ])
+        
+    skill = SelectField('Skill Level', choices = [
+        ('0', 'No Experiance'),
+        ('1', 'Beginner'),
+        ('2', 'Advancing'),
+        ('3', 'Intermediate'),
+        ('4', 'Advanced'),
+        ('5', 'Expert')
+        ])
+    
+
+class EditProfile(Form):
+    name = StringField('Name', [validators.Length(min=1, max=50)])
+    degree = SelectField('Degree', choices = [('compe','Computer Engineering'), 
+    ('softeng','Software Engineering'), 
+    ('compsci','Computer Science')])
+
+    year = SelectField('Degree', choices = [('1st','First Year'), 
+    ('2nd','Second Year'), 
+    ('3rd','Third Year'), 
+    ('4th','Fourth Year'), 
+    ('5th','Fifth Year+'), 
+    ('gd','Graduated')])
+
+    gpa = FloatField('GPA', [validators.Length(min=2, max=2)])
+    email = StringField('Email', [validators.Length(min=6, max=50)])
+    github = StringField('Email', [validators.Length(min=6, max=50)])
+    bio = TextField('Bio')
+
+    #projects field
+    project1 = FormField(MultiForm)
+    project2 = FormField(MultiForm)
+    project3 = FormField(MultiForm)
+    #work experiance field
+    work1 = FormField(MultiForm)
+    work2 = FormField(MultiForm)
+    work3 = FormField(MultiForm)
+    #languages field
+    lang1 = FormField(LangForm)
+    lang2 = FormField(LangForm)
+    lang3 = FormField(LangForm)
+    lang4 = FormField(LangForm)
+    lang5 = FormField(LangForm)
+    lang6 = FormField(LangForm)
+    lang7 = FormField(LangForm)
+    #skill tree
+
+
+
+
+def check_login(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Please log in', 'danger')
+            return redirect(url_for('singIn'))
+    return wrap
 
 #adding routing decorator for intial bootup
 @app.route('/')
@@ -90,6 +167,7 @@ def signIn():
 
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
+
     return render_template('editprofile.html')
 
 #sign up route
@@ -104,15 +182,6 @@ def signUp():
     return render_template('signUp.html', form=form)
 
 
-def check_login(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash('Please log in', 'danger')
-            return redirect(url_for('singIn'))
-    return wrap
 
 #logout
 @app.route('/signOut')
