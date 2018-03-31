@@ -8,7 +8,7 @@ def personalInfo():
             'name': 'Evan',
             'degree': 'Computer Engineering',
             'year': 'Second Year',
-            'gpa': 0,
+            'gpa': None,
             'email': 'timmsevan@gmail.com',
             'github': 'https://github.com/EvanTimms'
         }

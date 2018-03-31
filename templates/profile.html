@@ -1,0 +1,33 @@
+{% extends 'includes/layout.html' %}
+
+{% block body %}
+<div>
+    
+    <div class="row">
+        <div class="col">
+            <ul class="list-group">
+                    <!-- displays basic user data -->
+                    {% for el in profile %}
+                    <li class="list-group-item">{{el.name}}</li> 
+                    <li class="list-group-item">Degree: {{el.degree}}</li>
+                    <li class="list-group-item">Year: {{el.year}}</li>
+                    <li class="list-group-item">GPA: {{el.gpa}}</li>
+                    <li class="list-group-item">Email: {{el.email}}</li>
+                    <li class="list-group-item">Github: <a href="{{el.github}}">{{el.github}}</a></li> 
+                    {%endfor%}
+                </ul>
+        </div>
+    </div>
+    <p></p>
+    <div class="text-center">
+        <a class="btn btn-secondary btn-lg " href="editprofile" role="button">Edit Profile</a>
+    </div>
+    <p></p>    
+    <div id="chart">
+        <embed type="image/svg+xml" src= {{ timechart|safe }} />
+        <embed type="image/svg+xml" src= {{ langchart|safe }} />
+        <embed type="image/svg+xml" src= {{ skilltree|safe }} />
+    </div>
+    
+    </div> 
+{% endblock %}

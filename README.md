@@ -1,13 +1,26 @@
 # Code Stats 
 
 ## Features:
-* Languages 
+* Languages
+    - C/C++
+    - Python
+    - Javascript
+    - Java
+    - Go
+    - Assembly
+    Represented by pi chart, user choses 1-5 to represent skill and it is converted into percent
 * Projects
+    -Name, Description
 * Names/Personal Information
 * Work Experiance
+    -Job, Description
 * Skill Tree
+    - First: Languages/Fundementals
+    - 
 * Achievements
 * Coding hours- Maybe
+    - by month, scale between none and alot?
+    - Could split by project
 * Bio
 * Github Link
 * Users have a email/pass associated with account
