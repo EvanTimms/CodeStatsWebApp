@@ -3,6 +3,7 @@
 {% block body %}
 <div class="jumbotron text-center">
     <h3> Edit Your Profile</h3>
+    {% from 'includes/formhelpers.html' import render_field %}
     <form action="">
         <div class="form-group">
             {{render_field(form.name, class="form-control")}}
@@ -29,46 +30,47 @@
     <hr>
     <form action="">
         <div class="form-group">
-            {{render_field(form.project1, class="form-control")}}
+            {{render_field(form.First_Project, class="form-control")}}
         </div>
         <div class="form-group">
-            {{render_field(form.project2, class="form-control")}} 
+            {{render_field(form.Second_Project, class="form-control")}} 
         </div>
         <div class="form-group">
-            {{render_field(form.project3, class="form-control")}}  
+            {{render_field(form.Third_Project, class="form-control")}}  
         </div>
         <div class="form-group">
-            {{render_field(form.work1, class="form-control")}} 
+            {{render_field(form.Work_Experience_One, class="form-control")}} 
         </div>
         <div class="form-group">
-            {{render_field(form.work2, class="form-control")}}  
+            {{render_field(form.Work_Experience_Two, class="form-control")}}  
         </div>
         <div class="form-group">
-            {{render_field(form.work3, class="form-control")}}  
+            {{render_field(form.Work_Experience_Three, class="form-control")}}  
         </div>
     </form>
     <form action="">
         <div class="form-group">
-            {{render_field(form.lang1, class="form-control")}}
+            {{render_field(form.Language_1, class="form-control")}}
         </div>
         <div class="form-group">
-            {{render_field(form.lang2, class="form-control")}} 
+            {{render_field(form.Language_2, class="form-control")}} 
         </div>
         <div class="form-group">
-            {{render_field(form.lang3, class="form-control")}}  
+            {{render_field(form.Language_3, class="form-control")}}  
         </div>
         <div class="form-group">
-            {{render_field(form.lang4, class="form-control")}} 
+            {{render_field(form.Language_4, class="form-control")}} 
         </div>
         <div class="form-group">
-            {{render_field(form.lang5, class="form-control")}}  
+            {{render_field(form.Language_5, class="form-control")}}  
         </div>
         <div class="form-group">
-            {{render_field(form.lang6, class="form-control")}}  
+            {{render_field(form.Language_6, class="form-control")}}  
         </div>
         <div class="form-group">
-            {{render_field(form.lang7, class="form-control")}}  
+            {{render_field(form.Language_7, class="form-control")}}  
         </div>
         </form>
+        <p><input type="submit" class="btn btn-primary btn-lg btn-block" value = "Submit"></p>
 </div>
 {% endblock %}
