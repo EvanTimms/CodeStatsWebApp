@@ -123,22 +123,50 @@ def editprofile():
         gpa = form.gpa.data
         email = form.email.data
         bio = form.bio.data
+
+
         #project variables
-        project1 = form.First_Project.data
-        project2 = form.Second_Project.data
-        project3 = form.Third_Project.data
+        project1_n = form.First_Project.name.data
+        project1_d = form.First_Project.description.data
+
+        project2_n = form.Second_Project.name.data
+        project2_d = form.Second_Project.description.data
+
+        project3_n = form.Third_Project.name.data
+        project3_d = form.Third_Project.description.data
+
         #work variables
-        job1 = form.Work_Experience_One.data
-        job2 = form.Work_Experience_Two.data
-        job3 = form.Work_Experience_Three.data
+        job1_n = form.Work_Experience_One.name.data
+        job1_d = form.Work_Experience_One.description.data
+
+        job2_n = form.Work_Experience_Two.name.data
+        job2_d = form.Work_Experience_Two.description.data
+
+        job3_n = form.Work_Experience_Three.name.data
+        job3_d = form.Work_Experience_Three.description.data
+
+
         #language variables
-        lang1 = form.Language_1.data
-        lang2 = form.Language_2.data
-        lang3 = form.Language_3.data
-        lang4 = form.Language_4.data
-        lang5 = form.Language_5.data
-        lang6 = form.Language_6.data
-        lang7 = form.Language_7.data
+        lang1_l = form.Language_1.lang.data
+        lang1_s = form.Language_1.skill.data
+
+        lang2_l = form.Language_2.lang.data
+        lang2_s = form.Language_2.skill.data
+
+        lang3_l = form.Language_3.lang.data
+        lang3_s = form.Language_3.skill.data
+
+        lang4_l = form.Language_4.lang.data
+        lang4_s = form.Language_4.skill.data
+
+        lang5_l = form.Language_5.skill.data
+        lang5_s = form.Language_5.lang.data
+
+        lang6_l = form.Language_6.skill.data
+        lang6_s = form.Language_6.lang.data
+
+        lang7_l = form.Language_7.lang.data
+        lang7_s = form.Language_7.skill.data
 
         #TODO: create cursor, access and add this to the database
         #TODO: commit to db
@@ -166,7 +194,7 @@ def signUp():
        #TODO: close connection to db
 
        flash('You are now registered!', 'success')
-       redirect(url_for('signIn'))
+       return redirect(url_for('signIn'))
 
     return render_template('signUp.html', form=form)
 

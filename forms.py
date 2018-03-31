@@ -14,7 +14,7 @@ class RegisterForm(Form):
 
 class MultiForm(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
-    description = TextAreaField('Description')
+    description = TextAreaField('Description (Less than 100 words please)')
 
 class LangForm(Form):
     lang = SelectField('Language', choices = [
