@@ -1,10 +1,10 @@
 {% extends 'includes/layout.html' %}
 
+
 {% block body %}
+
 <div>
-    <div class="text-center">
-        <a class="btn btn-secondary btn-lg " href="editprofile" role="button">Edit Profile</a>
-    </div>
+
     <div class="resume">
         <header class="page-header">
         <h1 class="page-title">{{name}}</h1>
@@ -23,7 +23,7 @@
      
       <div class="col-6">
         <div id="chart">
-            <embed type="image/svg+xml" src= {{ langchart|safe }} />
+            <!-- <embed type="image/svg+xml" src= {{ langchart|safe }} /> -->
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@
           <div class="row">
                 <div class="col-6">
                     <div id="chart">
-                        <embed type="image/svg+xml" src= {{ skilltree|safe }} />
+                        <!-- <embed type="image/svg+xml" src= {{ skilltree|safe }} /> -->
                     </div>
                 </div>
                 <div class="col-6">
@@ -89,9 +89,9 @@
           </div>
           
     <p></p>
-   
-    <p></p>    
+     
     
     
     </div> 
+
 {% endblock %}

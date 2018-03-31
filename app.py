@@ -12,7 +12,7 @@ TODO:(Frontend)
     - Finish edit profile page-DONE
     - Style
     - Proper authentication displaying-Needs Backend, logic is there
-    - Feed 
+    - Feed
     - Documentation
 
 TODO:(Backend)
@@ -57,26 +57,23 @@ class User(db.Model):
 #adding routing decorator for intial bootup
 @app.route('/')
 def welcome():
-    #builds charts
-    time_chart = build_time_chart()
-    lang_chart = build_language_chart()
-    skill_tree = build_skill_tree()
-    #renders html web page
-    return render_template('welcome.html', profile = personal_info, timechart = time_chart, langchart = lang_chart, skilltree = skill_tree)
+    return render_template('welcome.html')
 
 #profile route
-@check_login
+# @check_login
 @app.route('/profile')
 def profile():
+    #TODO: pull user data from database, and construct charts from data
     time_chart = build_time_chart()
     lang_chart = build_language_chart()
     skill_tree = build_skill_tree()
     return render_template('profile.html', profile = personal_info, timechart = time_chart, langchart = lang_chart, skilltree = skill_tree)
 
 #home(feed) route
-@check_login
+# @check_login
 @app.route('/home')
 def home():
+    #TODO: Pull user data, build profiles off it
     return render_template('home.html')
 
 #about route
@@ -114,7 +111,7 @@ def signIn():
 
 
 #edit profile route
-@check_login
+# @check_login
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
     form = EditProfile(request.form)
@@ -180,6 +177,15 @@ def logout():
     session.clear()
     flash('Logged Out!')
     return redirect(url_for('signIn'))
+
+
+@app.route('/viewprofile', methods=['GET', 'POST'])
+def view_profile():
+    #TODO: read fetch request, pull user data on the requested user
+    #TODO: create class that displays other users data
+    
+    return render_template('viewprofile.html')
+
 
 if __name__ == "__main__":
     app.secret_key='cmput275'
