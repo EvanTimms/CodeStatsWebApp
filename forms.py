@@ -12,6 +12,11 @@ class RegisterForm(Form):
         ])
     confirm = PasswordField('Confirm Password')
 
+    def init_user(self, db):
+        user = app.User(1, self.name.data, self.username.data, self.email.data, self.password.data)
+        db.session.add(user)
+        db.session.commit()
+
 class MultiForm(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
     description = TextAreaField('Description (Less than 100 words please)')

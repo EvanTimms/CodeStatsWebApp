@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from wtforms import Form, StringField, TextAreaField, PasswordField, SelectField, FloatField, FormField, TextField,  validators
 from forms import *
 from checklogin import check_login
+from user import *
 
 #initalizing application as instance of flask class
 '''
@@ -34,25 +35,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1271427@localhost/CodeApp'
 db = SQLAlchemy(app)
 
-#outdated
-
-
-class User(db.Model):
-    __tablename__ = 'User'
-    id = db.Column('id', db.Integer, primary_key=True)
-    name = db.Column('name', db.Unicode)
-    username = db.Column('username', db.Unicode, unique=True)
-    email = db.Column('email', db.Unicode)
-    password = db.Column('password', db.Unicode)
-
-
-    def __init__(self, id, name, username, email, password):
-        self.name = name
-        self.username = username
-        self.email = email
-        self.password = password
-
-
 
 #adding routing decorator for intial bootup
 @app.route('/')
@@ -63,7 +45,7 @@ def welcome():
 # @check_login
 @app.route('/profile')
 def profile():
-    #TODO: pull user data from database, and construct charts from data
+    #TODO: pull user data from add_, and construct charts from data
     time_chart = build_time_chart()
     lang_chart = build_language_chart()
     skill_tree = build_skill_tree()
@@ -81,35 +63,6 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-#signin route
-@app.route('/signIn', methods=['GET', 'POST'])
-def signIn():
-    if request.method == 'POST':
-       #get form fields
-       username = request.form['username']
-       password_candidate = request.form['password']
-
-       #TODO: create cursor
-       #TODO: get user by username
-       #TODO: if rows found, get stored password and check with candidate
-       #TODO: implement logic below once password has been returned from database
-        # if(password matched):
-        #    session['logged_in'] = True
-        #    session['username'] = username
-
-        #    flash('You are now logged in!', 'success')
-        #    return redirect(url_for('profile'))
-        # else:
-        #     error = 'Invalid Login'
-        #     return render_template('signIn.html', error=error)
-        #TODO: Close connection
-
-
-        # else:
-        #     error = 'Username not found'        
-        #     return render_template('signIn.html', error=error)
-    return render_template('signIn.html')
 
 
 #edit profile route
@@ -170,7 +123,7 @@ def editprofile():
         lang7_l = form.Language_7.lang.data
         lang7_s = form.Language_7.skill.data
 
-        #TODO: create cursor, access and add this to the database
+        #TODO: create cursor, access and add this to the add_
         #TODO: commit to db
         #TODO: close connection to db
         
@@ -185,20 +138,35 @@ def editprofile():
 def signUp():
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
+        form.init_user()
         #data user has entered
-       name = form.name.data
-       email = form.email.data
-       username = form.username.data
-       password = form.password.data
-
-       #TODO: create cursor, access and add this to the database
-       #TODO: commit to db
-       #TODO: close connection to db
-
-       flash('You are now registered!', 'success')
-       return redirect(url_for('signIn'))
+        flash('You are now registered!', 'success')
+        return redirect(url_for('signIn'))
 
     return render_template('signUp.html', form=form)
+
+
+#signin route
+@app.route('/signIn', methods=['GET', 'POST'])
+def signIn():
+    if request.method == 'POST':
+        #get form fields
+        username = request.form['username']
+        password_candidate = request.form['password']
+
+        potential_user = getUser(username)
+
+        if password == potential_user.password:
+            session['logged_in'] = True
+            session['username'] = username
+            flash('You are now logged in!', 'success')
+            return redirect(url_for('profile'))
+
+        else:
+            error = 'Username not found'        
+            return render_template('signIn.html', error=error)
+
+    return render_template('signIn.html')
 
 #logout
 @app.route('/signOut')

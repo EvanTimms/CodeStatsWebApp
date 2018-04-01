@@ -33,9 +33,9 @@ depending on if the user was logged in or not
 
 #### How To Run
 
-The following packages are required to run Code Stats
-    -Flask(pip3 install Flask)
-    -mysql(sudo apt-get install mysql-server mysqlclient-dev)
-    -sql_alchemy(pip3 install)
-    -wtforms( pip3 install wtforms)
-    *important* the sql database used in this project is not included
+The following packages are required to run Code Stats:
+- Flask(pip3 install Flask)
+- mysql(sudo apt-get install mysql-server mysqlclient-dev)
+- sql_alchemy(pip3 install)
+- wtforms( pip3 install wtforms)
+- *important* the sql database used in this project is not included
