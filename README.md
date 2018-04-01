@@ -1,4 +1,4 @@
-# CodeStats
+# Code Stats
 
 ## By Evan Perret-Timms and Ben Ripka
 
@@ -16,14 +16,26 @@ and edit your own settings in the profile.
 Linked up basic html with flask app to create website skeleton. Boostrap was used for making the site look nicer
 that what otherwise could of been achieved with normal html and css. No backend or database implementation at this point.
 
-* Milestone 2: Database setup
+* Milestone 2: User Authentication
+
+At this point the backend database had been set up. To user authentication we used some additional libraies from flask and created some session variables to make sure users that were not signed up could not access a profile.
+
+* Milestone 3: Database setup
 
 This part of the project involved building as simple database in mysql to eventually hold all the user data. Some of the frontend work that
 went in at this stage included setting up forms to register/login/logout. The library wtforms was used for this part of the project.
 
-* Milestone 3: Feed/Edit Profile features
+* Milestone 4: Feed/Edit Profile features
 
 Using flasks dyanmic html features, we were able to set up a basic feed that pulled data from the database and displayed it for the user currently
 logged in. This way the user would be able to view other peoples resumes provided they were logged in. This also allowed us to change the navbar 
 depending on if the user was logged in or not
 
+#### How To Run
+
+The following packages are required to run Code Stats
+    -Flask(pip3 install Flask)
+    -mysql(sudo apt-get install mysql-server mysqlclient-dev)
+    -sql_alchemy(pip3 install)
+    -wtforms( pip3 install wtforms)
+    *important* the sql database used in this project is not included

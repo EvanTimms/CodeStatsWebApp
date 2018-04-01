@@ -1,5 +1,4 @@
 from flask import Flask, render_template,flash, redirect, url_for, session, logging, request
-from data import personalInfo
 from chartBuilder import *
 from flask_sqlalchemy import SQLAlchemy
 from wtforms import Form, StringField, TextAreaField, PasswordField, SelectField, FloatField, FormField, TextField,  validators
@@ -22,7 +21,6 @@ TODO:(General)
     - Idea, use huffman encoding or some variation for password encryption
 
     Order of things to do:
-    -Sign up
     -Login/logout
     -update profile
     -feed 
@@ -37,7 +35,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1271427@localhost/CodeApp'
 db = SQLAlchemy(app)
 
 #outdated
-personal_info = personalInfo()
+
 
 class User(db.Model):
     __tablename__ = 'User'
@@ -108,9 +106,10 @@ def signIn():
         #TODO: Close connection
 
 
-    else:
-        error = 'Username not found'        
-        return render_template('signIn.html', error=error)
+        # else:
+        #     error = 'Username not found'        
+        #     return render_template('signIn.html', error=error)
+    return render_template('signIn.html')
 
 
 #edit profile route
@@ -205,8 +204,8 @@ def signUp():
 @app.route('/signOut')
 def logout():
     session.clear()
-    flash('Logged Out!')
-    return redirect(url_for('signIn'))
+    flash('Logged Out!', 'success')
+    return redirect(url_for('welcome'))
 
 
 @app.route('/viewprofile', methods=['GET', 'POST'])
