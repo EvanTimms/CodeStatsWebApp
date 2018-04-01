@@ -34,8 +34,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:molly101@localhost/codestats'
 db = SQLAlchemy(app)
 
-def getUser(db, username):
-    user = db.session.query(User).filter_by(username = username).first()
+def getUser(db, param):
+    if type(param) == str:
+        username = param
+        user = db.session.query(User).filter_by(username = username).first()
+    elif type(param) == int:
+        Id = param
+        user = db.session.query(User).filter_by(id = Id).first()
     return user
 
 class User(db.Model):
@@ -165,9 +170,9 @@ class LangForm(Form):
 
 class EditProfile(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
-    degree = SelectField('Degree', choices = [('compe','Computer Engineering'), 
-    ('softeng','Software Engineering'), 
-    ('compsci','Computer Science')])
+    degree = SelectField('Degree', choices = [('Computer Engineering','Computer Engineering'), 
+    ('Computer Engineering','Software Engineering'), 
+    ('Computer Engineering','Computer Science')])
 
     year = SelectField('Year', choices = [('1st','First Year'), 
     ('2nd','Second Year'), 
@@ -284,11 +289,89 @@ def profile():
 
 #home(feed) route
 # @check_login
-@app.route('/home')
+@app.route('/home', methods=['GET', "POST"])
 def home():
-    #TODO: Pull user data, build profiles off it
-    
-    return render_template('home.html')
+    print(request.method)
+    if request.method == 'POST':
+
+        user = getUser(db, request.form['submit'])
+
+        #profile vars
+        name = user.name
+        degree = user.degree
+        year = user.year
+        gpa = user.gpa
+        email = user.email
+        github = user.github
+        bio = user.bio
+
+        job1_h = user.job1
+        job2_h = user.job2
+        job3_h = user.job3
+        
+        job1_des = user.j1desc
+        job2_des = user.j2desc
+        job3_des = user.j3desc
+
+        proj1_h = user.project1
+        proj2_h = user.project2
+        proj3_h = user.project3
+
+        proj1_des = user.p1desc
+        proj2_des = user.p2desc
+        proj3_des = user.p3desc
+
+        lang1_l = user.lang1
+        lang2_l = user.lang2
+        lang3_l = user.lang3
+        lang4_l = user.lang4
+        lang5_l = user.lang5
+        lang6_l = user.lang6
+        lang7_l = user.lang7
+
+        lang1_s = user.l1skill
+        lang2_s = user.l2skill
+        lang3_s = user.l3skill
+        lang4_s = user.l4skill
+        lang5_s = user.l5skill
+        lang6_s = user.l6skill
+        lang7_s = user.l7skill
+        
+
+        time_chart = build_time_chart()
+        lang_chart = build_language_chart()
+        skill_tree = build_skill_tree()
+        return render_template('viewprofile.html', langchart = lang_chart, skilltree = skill_tree,
+        name = name,
+        username = username,
+        degree = degree,
+        year = year,
+        gpa = gpa,
+        email = email,
+        github = github,
+        bio = bio,
+        job1_h = job1_h,
+        job2_h = job2_h,
+        job3_h = job3_h,
+        job1_des = job1_des,
+        job2_des = job2_des,
+        job3_des = job3_des,
+
+        proj1_h = proj1_h,
+        proj2_h = proj2_h,
+        proj3_h = proj3_h,
+
+        proj1_des = proj1_des,
+        proj2_des = proj2_des,
+        proj3_des = proj3_des
+        )
+    else:
+        users = []
+        total_users = db.session.query(User).count()
+        for i in range(1,total_users+1):
+            users.append(getUser(db, i))
+        
+        return render_template('home.html', users=users)
 
 #about route
 @app.route('/about')
@@ -393,13 +476,6 @@ def logout():
     flash('Logged Out!', 'success')
     return redirect(url_for('welcome'))
 
-
-@app.route('/viewprofile', methods=['GET', 'POST'])
-def view_profile():
-    #TODO: read fetch request, pull user data on the requested user
-    #TODO: create class that displays other users data
-    
-    return render_template('viewprofile.html')
 
 
 if __name__ == "__main__":

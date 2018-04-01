@@ -6,10 +6,10 @@
 <p></p>
 
 <!-- Replace this dummy with a for loop that loads all users -->
-<!-- 
-    { for user in users }
+
+    {% for user in users %}
     <div class="jumbotron">
-        <h2>John Doe</h2>
+        <h2>{{user.name}}</h2>
         <ul>
             <li>
                 Degree: {{user.degree}}
@@ -27,13 +27,16 @@
                 Github: {{user.github}}
             </li>
             <p></p>
-            <a class="btn btn-primary" href="viewprofile">View Profile</a>
+            <form action="" method="POST">
+                <input placeholder="username" class="btn btn-primary"  type="submit" value = "{{user.username}}">View Profile</input>
+            </form>
+            
         </ul>
-<   /div>
-    { endfor }
+    </div>
+    {% endfor %}
 
 
- -->
+
 
 
 
