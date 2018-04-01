@@ -15,14 +15,14 @@
              <h5 class="my-0 mr-md-auto font-weight-normal">Code Stats</h5>
                 <nav class="my-2 my-md-0 mr-md-3">
                         <a class="p-2 text-dark" href="about">About</a>  
-                        
+                        {% if session.logged_in %}
                         <a class="p-2 text-dark" href="home">Home</a>
                         <a class="p-2 text-dark" href="profile">Profile</a> 
                         <a class="p-2 text-dark" href="signOut">Sign Out</a>
-                        
+                        {% else %}
                         <a class="p-2 text-dark" href="signIn">Sign In</a>
                         <a class="btn btn-outline-primary" href="signUp">Sign up</a>
-                        
+                        {% endif %}
     
                 </nav>
         </div>

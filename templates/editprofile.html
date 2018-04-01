@@ -4,7 +4,7 @@
 <div class="jumbotron text-center">
     <h3> Edit Your Profile</h3>
     {% from 'includes/formhelpers.html' import render_field %}
-    <form action="">
+    <form action="" method="POST">
         <div class="form-group">
             {{render_field(form.name, class="form-control")}}
         </div>
@@ -26,9 +26,8 @@
         <div class="form-group">
             {{render_field(form.bio, class="form-control")}} 
         </div>
-    </form>
-    <hr>
-    <form action="">
+   
+        <hr>
         <div class="form-group">
             {{render_field(form.First_Project, class="form-control")}}
         </div>
@@ -47,8 +46,6 @@
         <div class="form-group">
             {{render_field(form.Work_Experience_Three, class="form-control")}}  
         </div>
-    </form>
-    <form action="">
         <div class="form-group">
             {{render_field(form.Language_1, class="form-control")}}
         </div>
@@ -70,7 +67,7 @@
         <div class="form-group">
             {{render_field(form.Language_7, class="form-control")}}  
         </div>
-        </form>
         <p><input type="submit" class="btn btn-primary btn-lg btn-block" value = "Submit"></p>
+    </form>
 </div>
 {% endblock %}

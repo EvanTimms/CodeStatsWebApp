@@ -22,7 +22,6 @@ TODO:(General)
     - Idea, use huffman encoding or some variation for password encryption
 
     Order of things to do:
-    -Login/logout
     -update profile
     -feed 
     -viewing other persons profile
@@ -177,7 +176,7 @@ class EditProfile(Form):
     ('5th','Fifth Year+'), 
     ('gd','Graduated')])
 
-    gpa = FloatField('GPA', [validators.Length(min=2, max=2)])
+    gpa = StringField('GPA', [validators.Length(min=2, max=10)])
     email = StringField('Email', [validators.Length(min=6, max=50)])
     github = StringField('GitHub Link', [validators.Length(min=6, max=50)])
     bio = TextAreaField('Bio (Less than 100 words)')
@@ -302,68 +301,55 @@ def about():
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
     form = EditProfile(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
+        username = session['username']
+        user = getUser(db, username)
+
         #personal info variables
-        name = form.name.data
-        degree = form.degree.data
-        year = form.year.data
-        gpa = form.gpa.data
-        email = form.email.data
-        bio = form.bio.data
-
-
+        user.name = form.name.data
+        user.degree = form.degree.data
+        user.year = form.year.data
+        user.gpa = form.gpa.data
+        user.email = form.email.data
+        user.bio = form.bio.data
         #project variables
-        project1_n = form.First_Project.name.data
-        project1_d = form.First_Project.description.data
-
-        project2_n = form.Second_Project.name.data
-        project2_d = form.Second_Project.description.data
-
-        project3_n = form.Third_Project.name.data
-        project3_d = form.Third_Project.description.data
-
+        user.project1 = form.First_Project.data['name']
+        user.project2 = form.Second_Project.data['name']
+        user.project3 = form.Third_Project.data['name']
+        user.p1desc = form.First_Project.data['description']
+        user.p2desc = form.Second_Project.data['description']
+        user.p3desc = form.Third_Project.data['description']
         #work variables
-        job1_n = form.Work_Experience_One.name.data
-        job1_d = form.Work_Experience_One.description.data
-
-        job2_n = form.Work_Experience_Two.name.data
-        job2_d = form.Work_Experience_Two.description.data
-
-        job3_n = form.Work_Experience_Three.name.data
-        job3_d = form.Work_Experience_Three.description.data
-
+        user.job1 = form.Work_Experience_One.data['name']
+        user.job2 = form.Work_Experience_Two.data['name']
+        user.job3 = form.Work_Experience_Three.data['name']
+        user.j1desc = form.Work_Experience_Three.data['description']
+        user.j2desc = form.Work_Experience_Three.data['description']
+        user.j3desc = form.Work_Experience_Three.data['description']
 
         #language variables
-        lang1_l = form.Language_1.lang.data
-        lang1_s = form.Language_1.skill.data
+        user.lang1 = form.Language_1.lang.data
+        user.lang2 = form.Language_2.lang.data
+        user.lang3 = form.Language_3.lang.data
+        user.lang4 = form.Language_4.lang.data
+        user.lang5 = form.Language_5.lang.data
+        user.lang6 = form.Language_6.lang.data
+        user.lang7 = form.Language_7.lang.data
+        user.l1skill = form.Language_1.skill.data
+        user.l2skill = form.Language_2.skill.data
+        user.l3skill = form.Language_3.skill.data
+        user.l4skill = form.Language_4.skill.data
+        user.l5skill = form.Language_5.skill.data
+        user.l6skill = form.Language_6.skill.data
+        user.l7skill = form.Language_7.skill.data
 
-        lang2_l = form.Language_2.lang.data
-        lang2_s = form.Language_2.skill.data
-
-        lang3_l = form.Language_3.lang.data
-        lang3_s = form.Language_3.skill.data
-
-        lang4_l = form.Language_4.lang.data
-        lang4_s = form.Language_4.skill.data
-
-        lang5_l = form.Language_5.skill.data
-        lang5_s = form.Language_5.lang.data
-
-        lang6_l = form.Language_6.skill.data
-        lang6_s = form.Language_6.lang.data
-
-        lang7_l = form.Language_7.lang.data
-        lang7_s = form.Language_7.skill.data
-
-        #TODO: create cursor, access and add this to the add_
-        #TODO: commit to db
-        #TODO: close connection to db
-        
+        user.updateUser(db)
 
         flash('Profile Updated', 'success')
-        redirect(url_for('profile'))
+        return redirect(url_for('profile'))
 
     return render_template('editprofile.html', form=form)
+
 
 #sign up route
 @app.route('/signUp', methods=['GET', "POST"])
@@ -373,7 +359,7 @@ def signUp():
         form.init_user(db)
         #data user has entered
         flash('You are now registered!', 'success')
-        return redirect(url_for('signIn'))
+        return redirect(url_for('editprofile'))
 
     return render_template('signUp.html', form=form)
 
