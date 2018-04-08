@@ -4,6 +4,13 @@
 <div class="jumbotron text-center">
     <h3> Edit Your Profile</h3>
     {% from 'includes/formhelpers.html' import render_field %}
+    <form action="/upload" method="post". enctype="multipart/form-data">
+            <span>
+                Browse <input type="file" name="image">
+            </span>
+        <input type="submit" name="Upload a Profile Photo" class="btn btn-primary" value = "Add Profile Photo">
+    </form>
+
     <form action="" method="POST">
         <div class="form-group">
             {{render_field(form.name, class="form-control")}}
@@ -67,6 +74,7 @@
         <div class="form-group">
             {{render_field(form.Language_7, class="form-control")}}  
         </div>
+
         <p><input type="submit" class="btn btn-primary btn-lg btn-block" value = "Submit"></p>
     </form>
 </div>

@@ -12,7 +12,22 @@ def build_time_chart():
     line_chart = line_chart.render_data_uri()
     return line_chart
 
-def build_language_chart():
+def build_language_chart(languages):
+
+    languages = [(x[0], int(x[1])) for x in languages if x[0] is not 'N/A']
+    totalskill = sum([x[1] for x in languages])
+
+    skillcents = [(x[0], x[1]/totalskill*100) for x in languages]
+
+    pie_chart = pygal.Pie(inner_radius = .4)
+    pie_chart.title = 'Coder Break-down'
+
+    for i in range(len(skillcents)):
+        exec("pie_chart.add(skillcents[{}][0], skillcents[{}][1])".format(i, i))
+    pie_chart = pie_chart.render_data_uri()
+    return pie_chart
+
+    '''
     pie_chart = pygal.Pie(inner_radius=.4)
     pie_chart.title = 'Browser usage in February 2012 (in %)'
     pie_chart.add('IE', 19.5)
@@ -22,6 +37,7 @@ def build_language_chart():
     pie_chart.add('Opera', 2.3)
     pie_chart = pie_chart.render_data_uri()
     return pie_chart
+    '''
 
 def build_skill_tree():
     radar_chart = pygal.Radar()

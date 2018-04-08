@@ -3,13 +3,15 @@
 {% block body %}
 <div>
    <p></p>
-   <div class="text-left">
-        <a class="btn btn-secondary btn-sm " href="editprofile" role="button">Edit Profile</a>
-    </div>
     <div class="resume">
         <header class="page-header">
-        <h1 class="page-title">{{name}}</h1>
-        <h3>{{username}}</h3>
+          <img src="{{picture}}" alt="Profile Picture" style="max-width: 200px">
+          <h1 class="page-title">{{name}}</h1>
+          <h3>{{username}}</h3>
+          <div class="text-left">
+        <a class="btn btn-secondary btn-sm " href="editprofile" role="button">Edit Profile</a>
+    </div>
+    <p></p>
       </header>
       <div class="row">
       <div class="col-6">

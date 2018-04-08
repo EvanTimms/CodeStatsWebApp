@@ -9,6 +9,7 @@
 
     {% for user in users %}
     <div class="jumbotron">
+        <img src="{{user.picture}}" alt="Profile Picture" style="max-width: 150px">
         <h2>{{user.name}}</h2>
         <ul>
             <li>
@@ -27,9 +28,8 @@
                 Github: {{user.github}}
             </li>
             <p></p>
-            <form action="" method="POST">
-                <input placeholder="username" class="btn btn-primary"  type="submit" value = "{{user.username}}">View Profile</input>
-            </form>
+            <a class="btn btn-secondary btn-sm " href="viewprofile?username={{user.username}}" role="button">{{user.username}}</a>
+            
             
         </ul>
     </div>
