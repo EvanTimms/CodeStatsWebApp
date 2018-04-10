@@ -30,16 +30,23 @@ TODO:(General)
 
 '''
 
+# Create flask object to encapsulate the whole webapp
 app = Flask(__name__)
 
+# Connect the app to the SQL database "codestats" using SQLalchemy framework
+# Allow transmission of signals to track when items are added, etc.
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1271427@localhost/codestats'
+# Create a handle for the database
 db = SQLAlchemy(app)
 
+# Designate a folder to store the profile pictures, and specify allowed file types
 UPLOAD_FOLDER = os.path.basename('static')
 ALLOWED_EXTENTIONS = ['jpg', 'png', 'pdf']
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# Function to create an existing user object by withdrawing their information from the batabase.
+# Can select object based on ID or username.
 def getUser(db, param):
     if type(param) == str:
         username = param
@@ -49,9 +56,12 @@ def getUser(db, param):
         user = db.session.query(User).filter_by(id = Id).first()
     return user
 
-
+# User class, that contains all relevant information pertaining to a user.
 class User(db.Model):
+    # refer to the table 'users' within the database.
     __tablename__ = 'users'
+
+    # Link each attribute with it's corresponding column in the table
     id = db.Column('id', db.Integer, primary_key=True)
     name = db.Column('name', db.Unicode)
     username = db.Column('username', db.Unicode, unique=True)
@@ -90,8 +100,7 @@ class User(db.Model):
     l7skill = db.Column('l7skill', db.Unicode)
     picture = db.Column('picture', db.Unicode)
 
-
-
+    # init method used upon registration of a new client. Only the first four attributes are necessary.
     def __init__(self, id, name, username, email, password):
         self.name = name
         self.username = username
@@ -129,92 +138,10 @@ class User(db.Model):
         self.l6skill = None
         self.l7skill = None
         self.picture = "/static/blank.jpg"
-
+    # Method called to push new attributes into the database
     def updateUser(self, db):
         db.session.add(self)
         db.session.commit()
-
-class RegisterForm(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
-    username = StringField('Username', [validators.Length(min=4, max=25)])
-    email= StringField('Email', [validators.Length(min=6, max=50)])
-    password  =PasswordField('Password', [
-        validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords do not match')
-        ])
-    confirm = PasswordField('Confirm Password')
-
-    def init_user(self, db):
-        user = User(1, self.name.data, self.username.data, self.email.data, self.password.data)
-        session['logged_in'] = True
-        session['username'] = self.username.data
-        db.session.add(user)
-        db.session.commit()
-
-class MultiForm(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
-    description = TextAreaField('Description (Less than 100 words please)')
-
-class LangForm(Form):
-    lang = SelectField('Language', choices = [
-        ('C','C'), 
-        ('C++','C++'), 
-        ('Python','Python'),
-        ('Java','Java'),
-        ('JavaScript','JavaScript'),
-        ('Ruby','Ruby'),
-        ('Go','Go'),
-        ('Assemby','Assemby'),
-        ('Matlab','Matlab'),
-        ('N/A','None')
-        ])
-
-    skill = SelectField('Skill Level', choices = [
-        ('0', 'No Experience'),
-        ('1', 'Beginner'),
-        ('2', 'Advancing'),
-        ('3', 'Intermediate'),
-        ('4', 'Advanced'),
-        ('5', 'Expert')
-        ])
-    
-
-class EditProfile(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
-    degree = SelectField('Degree', choices = [('Computer Engineering','Computer Engineering'), 
-    ('Computer Engineering','Software Engineering'), 
-    ('Computer Engineering','Computer Science')])
-
-    year = SelectField('Year', choices = [('1st','First Year'), 
-    ('2nd','Second Year'), 
-    ('3rd','Third Year'), 
-    ('4th','Fourth Year'), 
-    ('5th','Fifth Year+'), 
-    ('gd','Graduated')])
-
-    gpa = StringField('GPA', [validators.Length(min=2, max=10)])
-    email = StringField('Email', [validators.Length(min=6, max=50)])
-    github = StringField('GitHub Link', [validators.Length(min=6, max=50)])
-    bio = TextAreaField('Bio (Less than 100 words)')
-
-    #projects field
-    First_Project = FormField(MultiForm)
-    Second_Project = FormField(MultiForm)
-    Third_Project = FormField(MultiForm)
-    #work Experience field
-    Work_Experience_One = FormField(MultiForm)
-    Work_Experience_Two = FormField(MultiForm)
-    Work_Experience_Three = FormField(MultiForm)
-    #languages field
-    Language_1 = FormField(LangForm)
-    Language_2 = FormField(LangForm)
-    Language_3 = FormField(LangForm)
-    Language_4 = FormField(LangForm)
-    Language_5 = FormField(LangForm)
-    Language_6 = FormField(LangForm)
-    Language_7 = FormField(LangForm)
-    #skill tree
-
 
 
 
@@ -228,9 +155,10 @@ def welcome():
 @app.route('/profile')
 def profile():
     username = session['username']
+    # Create the user object of the user currently logged in
     user = getUser(db, username)
 
-    #profile vars
+    # Gather variables to be used in HTML template and graphs
     name = user.name
     degree = user.degree
     year = user.year
@@ -271,18 +199,18 @@ def profile():
     lang5_s = user.l5skill
     lang6_s = user.l6skill
     lang7_s = user.l7skill
-
     picture = user.picture
-    print(picture)
-
     languages = []
+
+    # make a list of languages to pass to chart builder
     for i in range(1,8):
     	exec('languages.append((lang{}_l, lang{}_s))'.format(i,i))
     
-
+    # Create charts to display on profile page
     time_chart = build_time_chart()
     lang_chart = build_language_chart(languages)
     skill_tree = build_skill_tree()
+    # Populate the HTML file with the user attributes
     return render_template('profile.html', langchart = lang_chart, skilltree = skill_tree,
     picture = picture,
     name = name,
@@ -313,9 +241,10 @@ def profile():
 # @check_login
 @app.route('/home', methods=['GET', "POST"])
 def home():
-    print(request.method)
-    if request.method == 'POST':
 
+    # To be exectued when the user clicks on another user, to view their profile.
+    if request.method == 'POST':
+        # Create user object for the user who's profile is to be displayed.
         user = getUser(db, request.form['submit'])
 
         #profile vars
@@ -358,7 +287,6 @@ def home():
         lang5_s = user.l5skill
         lang6_s = user.l6skill
         lang7_s = user.l7skill
-
         picture = user.picture
 
         
@@ -393,13 +321,17 @@ def home():
         proj3_des = proj3_des
         )
     else:
+        # Gather all users from the database, and create a list of them
         users = User.query.all()
-        
+
+        # Pass the users to the corresponding template to be displayed.
         return render_template('home.html', users=users)
 
 #viewProfile route
 @app.route('/viewprofile')
 def viewprofile():
+
+    # Create a user object for the profile to be viewed
     username = request.args['username']
     user = getUser(db, username)
 
@@ -444,9 +376,9 @@ def viewprofile():
     lang5_s = user.l5skill
     lang6_s = user.l6skill
     lang7_s = user.l7skill
-
     picture = user.picture
 
+    #create a language lsit to pass to chart builder.
     languages = []
     for i in range(1,8):
         exec('languages.append((lang{}_l, lang{}_s))'.format(i,i))
@@ -455,6 +387,8 @@ def viewprofile():
     time_chart = build_time_chart()
     lang_chart = build_language_chart(languages)
     skill_tree = build_skill_tree()
+
+    # pass the user parameters to the HTML file to be displayed
     return render_template('viewprofile.html', langchart = lang_chart, skilltree = skill_tree,
     name = name,
     picture = picture,
@@ -481,12 +415,11 @@ def viewprofile():
     proj3_des = proj3_des
     )
 
-
-
-
 #about route
 @app.route('/about')
 def about():
+
+    # display the about page.
     return render_template('about.html')
 
 
@@ -537,6 +470,7 @@ def editprofile():
         user.l6skill = form.Language_6.skill.data
         user.l7skill = form.Language_7.skill.data
 
+        # commit the changes to the database
         user.updateUser(db)
 
         flash('Profile Updated', 'success')
@@ -547,22 +481,23 @@ def editprofile():
 # for uploading photos
 @app.route('/upload', methods=['POST'])
 def uploadPhoto():
+
+    # get the current user's username.
     username = session['username']
     user = getUser(db, username)
+
+    # get the uploaded file and check if the file is of exepted type (in ALLOWED_EXTENTIONS)
     file = request.files['image']
     name = file.filename
     extention = name.split('.')[-1]
 
-
     if extention in ALLOWED_EXTENTIONS:
+        # The file is valid, so change it's name to username.extention and save it in the deignated folder
         file.filename = username+'.'+extention
         user.picture = "/static/" + file.filename
         user.updateUser(db)
-        print(user.picture)
         f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-
         file.save(f)
-
 
         flash("Upload Successful")
         return redirect(url_for("editprofile"))
@@ -587,18 +522,24 @@ def signUp():
 @app.route('/signIn', methods=['GET', 'POST'])
 def signIn():
     if request.method == 'POST':
+        # get the entered username and password
         username = request.form['username']
         password_candidate = request.form['password']
 
+        # get the password hash that corresponds to the entered username, from the database
         potential_user = getUser(db, username)
+
+        # check that the entered password would create the correct hash
         match = check_password_hash(potential_user.password, password_candidate)
 
         if match:
+            # if password is correct, log the person in and go to their profile.
             session['logged_in'] = True
             session['username'] = username
             flash('You are now logged in!', 'success')
             return redirect(url_for('profile'))
 
+        # If not correct, display error message and ask again
         else:
             error = 'Username not found'        
             return render_template('signIn.html', error=error)
