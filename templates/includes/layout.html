@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Code Stats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> 
+    <link rel= "stylesheet" type= "text/css" href= "static/style.css">
+           
+</head>
+<body>
+    <div class="container"> 
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+             <h5 class="my-0 mr-md-auto font-weight-normal">Code Stats</h5>
+                <nav class="my-2 my-md-0 mr-md-3">
+                        <a class="p-2 text-dark" href="about">About</a>  
+                        {% if session.logged_in %}
+                        <a class="p-2 text-dark" href="home">Home</a>
+                        <a class="p-2 text-dark" href="profile">Profile</a> 
+                        <a class="p-2 text-dark" href="signOut">Sign Out</a>
+                        {% else %}
+                        <a class="p-2 text-dark" href="signIn">Sign In</a>
+                        <a class="btn btn-outline-primary" href="signUp">Sign up</a>
+                        {% endif %}
+    
+                </nav>
+        </div>
+    {% include 'includes/messages.html' %}
+    {% block body %}
+    {% endblock %}
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% extends 'includes/layout.html' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h3> Edit Your Profile</h3>
+    {% from 'includes/formhelpers.html' import render_field %}
+    <form action="/upload" method="post". enctype="multipart/form-data">
+            <span>
+                Browse <input type="file" name="image">
+            </span>
+        <input type="submit" name="Upload a Profile Photo" class="btn btn-primary" value = "Add Profile Photo">
+    </form>
+
+    <form action="" method="POST">
+        <div class="form-group">
+            {{render_field(form.name, class="form-control")}}
+        </div>
+        <div class="form-group">
+            {{render_field(form.degree, class="form-control")}} 
+        </div>
+        <div class="form-group">
+            {{render_field(form.year, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.gpa, class="form-control")}} 
+        </div>
+        <div class="form-group">
+            {{render_field(form.email, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.github, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.bio, class="form-control")}} 
+        </div>
+   
+        <hr>
+        <div class="form-group">
+            {{render_field(form.First_Project, class="form-control")}}
+        </div>
+        <div class="form-group">
+            {{render_field(form.Second_Project, class="form-control")}} 
+        </div>
+        <div class="form-group">
+            {{render_field(form.Third_Project, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.Work_Experience_One, class="form-control")}} 
+        </div>
+        <div class="form-group">
+            {{render_field(form.Work_Experience_Two, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.Work_Experience_Three, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.Language_1, class="form-control")}}
+        </div>
+        <div class="form-group">
+            {{render_field(form.Language_2, class="form-control")}} 
+        </div>
+        <div class="form-group">
+            {{render_field(form.Language_3, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.Language_4, class="form-control")}} 
+        </div>
+        <div class="form-group">
+            {{render_field(form.Language_5, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.Language_6, class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{render_field(form.Language_7, class="form-control")}}  
+        </div>
+
+        <p><input type="submit" class="btn btn-primary btn-lg btn-block" value = "Submit"></p>
+    </form>
+</div>
+{% endblock %}

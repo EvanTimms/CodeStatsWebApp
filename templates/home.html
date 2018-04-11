@@ -1,0 +1,47 @@
+{% extends 'includes/layout.html' %}
+
+{% block body %}
+
+<h3 class="text-center">Your Feed</h3>
+<p></p>
+
+<!-- Replace this dummy with a for loop that loads all users -->
+
+    {% for user in users %}
+    <div class="jumbotron">
+        <img src="{{user.picture}}" alt="Profile Picture" style="max-width: 150px">
+        <h2>{{user.name}}</h2>
+        <ul>
+            <li>
+                Degree: {{user.degree}}
+            </li>
+            <li>
+                Year: {{user.year}}
+            </li>
+            <li>
+                GPA: {{user.gpa}}
+            </li>
+            <li>
+                Email: {{user.email}}
+            </li>
+            <li>
+                Github: {{user.github}}
+            </li>
+            <p></p>
+            <a class="btn btn-secondary btn-sm " href="viewprofile?username={{user.username}}" role="button">{{user.username}}</a>
+            
+            
+        </ul>
+    </div>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
