@@ -1,5 +1,5 @@
 from wtforms import Form, StringField, TextAreaField, PasswordField, SelectField, FloatField, FormField, TextAreaField,  validators
-
+from app import *
 #registration class that takes form data from html
 
 class RegisterForm(Form):
@@ -27,6 +27,7 @@ class MultiForm(Form):
 
 class LangForm(Form):
     lang = SelectField('Language', choices=[
+        ('N/A', 'None'),
         ('C', 'C'),
         ('C++', 'C++'),
         ('Python', 'Python'),
@@ -35,8 +36,8 @@ class LangForm(Form):
         ('Ruby', 'Ruby'),
         ('Go', 'Go'),
         ('Assemby', 'Assemby'),
-        ('Matlab', 'Matlab'),
-        ('N/A', 'None')
+        ('Matlab', 'Matlab')
+       
     ])
 
     skill = SelectField('Skill Level', choices=[
@@ -50,7 +51,6 @@ class LangForm(Form):
 
 
 class EditProfile(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
     degree = SelectField('Degree', choices=[('Computer Engineering', 'Computer Engineering'),
                                             ('Computer Engineering', 'Software Engineering'),
                                             ('Computer Engineering', 'Computer Science')])

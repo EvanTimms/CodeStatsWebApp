@@ -8,19 +8,18 @@
           <img src="{{picture}}" alt="Profile Picture" style="max-width: 200px">
           <h1 class="page-title">{{name}}</h1>
           <h3>{{username}}</h3>
-          <div class="text-left">
-        <a class="btn btn-secondary btn-sm " href="editprofile" role="button">Edit Profile</a>
+          <a class="btn btn-secondary btn-sm" href="editprofile" role="button">Edit Profile</a>   
     </div>
     <p></p>
       </header>
       <div class="row">
       <div class="col-6">
         <ul class="list-group">
-            <li class="list-group-item">{{degree}}</li>
-            <li class="list-group-item">{{year}}</li>
-            <li class="list-group-item">{{gpa}}</li>
-            <li class="list-group-item">{{email}}</li>
-            <li class="list-group-item">{{github}}</li>
+                <li class="list-group-item">Degree: {{degree}}</li>
+                <li class="list-group-item">Year: {{year}}</li>
+                <li class="list-group-item">GPA: {{gpa}}</li>
+                <li class="list-group-item">Email: {{email}}</li>
+                <li class="list-group-item">Github: {{github}}</li>
           </ul>
       </div>
      
@@ -36,42 +35,29 @@
              {{bio}}
             </p>
           </div>
-          <div class="bs-callout bs-callout-danger">
-            <h3>Interests</h3>
-            <p>
-             {{interests}}
-            </p>
-          </div>
     
           <div class="bs-callout bs-callout-danger">
             <h3>Prior Experiences</h3>
             <ul class="list-group">
                 <p></p>
-                <h4 class="list-group-item-heading">
-                  {{job1_h}}
-                </h4>
+                <h4 class="list-group-item-heading">{{job1_h}}</h4>
                 <p class="list-group-item-text">
-                  {{job1_des}}
+                    {{job1_des}}
                 </p>
                 <p></p>
                 <h4 class="list-group-item-heading">{{job2_h}}</h4>
                 <p class="list-group-item-text">
-                 {{job2_des}}
+                    {{job2_des}}
                 </p>
                 <p></p>
                 <h4 class="list-group-item-heading">{{job3_h}}</h4>
                 <p class="list-group-item-text">
-                 {{job3_des}}
+                    {{job3_des}}
                 </p>
                 <p></p>
             </ul>
           </div>
           <div class="row">
-                <div class="col-6">
-                    <div id="chart">
-                        <embed type="image/svg+xml" src= {{ skilltree|safe }} />
-                    </div>
-                </div>
                 <div class="col-6">
                     <h3>Projects</h3>
                     <ul class="list-group">

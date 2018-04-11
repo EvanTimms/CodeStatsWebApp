@@ -8,3 +8,7 @@ body{
     font-family: 'Raleway' !important;
 }
 
+.jumbotron.text-center.welcome{
+    background-color: white ;
+}
+
