@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 from flask import Flask, flash, redirect, url_for, session
-=======
-from flask import Flask, flash, redirect, url_for
->>>>>>> 389f1e44bb21faadd31c559c04c999c4ba9488e7
 from functools import wraps
 
 
