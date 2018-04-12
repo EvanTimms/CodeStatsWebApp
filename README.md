@@ -34,8 +34,11 @@ depending on if the user was logged in or not
 #### How To Run
 
 The following packages are required to run Code Stats:
-- Flask(pip3 install Flask)
-- mysql(sudo apt-get install mysql-server mysqlclient-dev)
-- sql_alchemy(pip3 install)
-- wtforms( pip3 install wtforms)
-- *important* the sql database used in this project is not included
+- Flask (sudo pip3 install Flask)
+-pygal (sudo pip3 install pygal)
+- mysql (sudo apt-get install mysql-server mysqlclient-dev)
+- sql_alchemy (sudp pip3 install flask_sqlalchemy)
+- wtforms (sudo pip3 install wtforms)
+
+#### Data Base Setup
+Follow the following instructions to install mysql and set up the database correctly
