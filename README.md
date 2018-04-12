@@ -39,6 +39,20 @@ The following packages are required to run Code Stats:
 - mysql (sudo apt-get install mysql-server mysqlclient-dev)
 - sql_alchemy (sudp pip3 install flask_sqlalchemy)
 - wtforms (sudo pip3 install wtforms)
+- Flask MySQLdb (sudo pip3 install Flask-mysqldb)
 
 #### Data Base Setup
 Follow the following instructions to install mysql and set up the database correctly
+- Installing: sudo apt-get install mysql-server libsqlclient-dev
+- mysql will prompt you for a password. Write this password down as you will be using it to log in.
+- run in terminal: mysql -u root -p 
+- enter the password you wrote down
+- Once logged in, following the below instructions and you will be ready to go!
+
+1. copy the code form the file database.sql into the terminal. If there are no syntax erros the database should now contain the table for users.
+
+2. In app.py:
+ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:PASSWORDHERE@localhost/codestats' 
+ change PASSWORD here to the password you used setting up mysql.
+
+ You're all good to go!
