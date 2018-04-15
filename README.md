@@ -30,21 +30,20 @@ Flask is great because it integrates with the Jinja2 template engine. With this 
 
 * Milestone 5: Password Hashing, Profile Picture
 
-As a added security feature, the Python Werkzeug module was used to encrypt and decrypt stored passwords.  
+As a added security feature, the Python Werkzeug module was used to encrypt and decrypt stored passwords.
 
 #### How To Run
 
 The following packages are required to run Code Stats:
 - Flask (sudo pip3 install Flask)
 -pygal (sudo pip3 install pygal)
-- mysql (sudo apt-get install mysql-server mysqlclient-dev)
+- mysql (sudo apt-get install mysql-server libmysqlclient-dev)
 - sql_alchemy (sudp pip3 install flask_sqlalchemy)
 - wtforms (sudo pip3 install wtforms)
 - Flask MySQLdb (sudo pip3 install Flask-mysqldb)
 
 #### Data Base Setup
 Follow the following instructions to install mysql and set up the database correctly
-- Installing: sudo apt-get install mysql-server libsqlclient-dev
 - mysql will prompt you for a password. Write this password down as you will be using it to log in.
 - run in terminal: mysql -u root -p 
 - enter the password you wrote down
@@ -56,4 +55,4 @@ Follow the following instructions to install mysql and set up the database corre
  app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:PASSWORDHERE@localhost/codestats' 
  change PASSWORDHERE to the password you used setting up mysql.
 
- You're all good to go!
+ You're all good to go! Run app.py and open localhost 5000 in chrome.

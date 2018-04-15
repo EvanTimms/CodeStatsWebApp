@@ -14,7 +14,7 @@ app = Flask(__name__)
 # Connect the app to the SQL database "codestats" using SQLalchemy framework
 # Allow transmission of signals to track when items are added, etc.
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:molly101@localhost/codestats'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:PASSWORDHERE@localhost/codestats'
 # Create a handle for the database
 db = SQLAlchemy(app)
 
@@ -386,7 +386,7 @@ def signIn():
         try:
             match = check_password_hash(potential_user.password, password_candidate)
         except AttributeError:
-            flash('No username associated with  user', 'danger')
+            flash('Incorrent username or password', 'danger')
             return redirect(url_for('signIn'))
         # check that the entered password would create the correct hash
         
