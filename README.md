@@ -4,32 +4,33 @@
 
 ### Description
 
-This is a applicaiton that allows users to build a simple resume on a website and
+This is a applicton that allows users to build a simple resume on a website and
 be able to view others. Like a linkedin for programmers, this site mainly focusses on connecting
 programmers. When logged it, you can view other peoples profiles throught the home tab,
-and edit your own settings in the profile.
+and edit your own settings in the profile. The site uses the Python flask framework as a backend with MySQL 
+as the database. Flask is great as it is a relavility lightweight framework that supports almost all the features you could need for a web application. MySQL is great as a database sever and works great with Flasks SQL handler SQLAlchemy.
 
 ### Milestones
 
 * Milestone 1: Basic Frontend
 
-Linked up basic html with flask app to create website skeleton. Boostrap was used for making the site look nicer
-that what otherwise could of been achieved with normal html and css. No backend or database implementation at this point.
+The first major task involed linking up the basic html outline with the  flask app to create the website skeleton. Boostrap was used for making the site look nicer that what otherwise could of been achieved with normal html and css and for a fraction of the time. No backend or database implementation at this point.
 
-* Milestone 2: User Authentication
+* Milestone 2: Database setup
 
-At this point the backend database had been set up. To user authentication we used some additional libraies from flask and created some session variables to make sure users that were not signed up could not access a profile.
+This part of the project involved building as simple database in MySQL to eventually hold all the user data. Some of the frontend work that went in at this stage included setting up forms to register/login/logout. The library wtforms was used for this part of the project.
 
-* Milestone 3: Database setup
+* Milestone 3: User Authentication
 
-This part of the project involved building as simple database in mysql to eventually hold all the user data. Some of the frontend work that
-went in at this stage included setting up forms to register/login/logout. The library wtforms was used for this part of the project.
+At this point the backend database had been set up. To user authentication we used some additional libraies from flask and created some session variables to make sure users that were not signed up could not access a profile by navigating directly in the brower.
 
 * Milestone 4: Feed/Edit Profile features
 
-Using flasks dyanmic html features, we were able to set up a basic feed that pulled data from the database and displayed it for the user currently
-logged in. This way the user would be able to view other peoples resumes provided they were logged in. This also allowed us to change the navbar 
-depending on if the user was logged in or not
+Flask is great because it integrates with the Jinja2 template engine. With this engine, we were able to pull user data from the database and display it on the frontend. We were able to set up a basic feed that pulled data from the database and displayed it for the user currently logged in. This way the user would be able to view other peoples resumes provided they were logged in. This also allowed us to change the navbar depending on if the user was logged in or not.
+
+* Milestone 5: Password Hashing, Profile Picture
+
+As a added security feature, the Python Werkzeug module was used to encrypt and decrypt stored passwords.  
 
 #### How To Run
 
@@ -53,6 +54,6 @@ Follow the following instructions to install mysql and set up the database corre
 
 2. In app.py:
  app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:PASSWORDHERE@localhost/codestats' 
- change PASSWORD here to the password you used setting up mysql.
+ change PASSWORDHERE to the password you used setting up mysql.
 
  You're all good to go!
